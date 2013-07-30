@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body {
+		position: relative;
+		padding: 1em;
+		background-color: #eee;
+		margin: 0;
+	}
+	#container {
+		width: 640px;
+		margin: 0 auto;
+		background-color: #fff;
+	}
+	.section {
+		padding: 1em;
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 1em;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	.my-dialog {
+		background-color: #fff;
+		padding: 1em;
+	}
+
+	</style>
+</head>
+<body>
+
+	<div id="container">
+		<div class="section">
+			<h1>Lorem ipsum</h1>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, quis, nesciunt tenetur quibusdam provident commodi. Rerum, optio, cumque esse adipisci incidunt necessitatibus fugiat tempora sapiente. Alias eos soluta quas ex.
+			</p>
+			<p>
+				<a href="#" class="link-dialog">Open Dialog</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="hide">
+		<div class="my-dialog" id="my-dialog">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque illo impedit enim voluptas ex saepe? Fugiat, quae est mollitia culpa veniam illum doloribus quam et eligendi eaque qui distinctio dolores.
+			</p>
+			<button class="button-close">CLOSE</button>
+		</div>
+	</div>
+
+	<script src="../vendors/jquery/jquery.min.js"></script>
+	<script src="../src/simpledialog.js"></script>
+	<script src="../src/simpledialog.effects.js"></script>
+	<script>
+
+	// duplicate sections
+	(function(){
+		var i = 30;
+		var section = $(".section").eq(0);
+		while(i--){
+			section.clone().appendTo("#container");
+		}
+	}());
+
+	// demo
+	(function(){
+		$dialog = $("#my-dialog");
+		$dialog.dialog("init", {
+			effect: "slide",
+			width: 320
+		});
+		$dialog.on("dialogOpen", function(){
+			console.log("open dialog");
+		});
+		$dialog.on("dialogClose", function(){
+			console.log("close dialog");
+		});
+
+		$("#container").on("click", ".link-dialog", function(e){
+			e.preventDefault();
+			$dialog.dialog("open");
+		});
+	}());
+
+	</script>
+	
+</body>
+</html>

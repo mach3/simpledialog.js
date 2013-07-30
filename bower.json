@@ -1,0 +1,7 @@
+{
+    "name": "jquery-simpledialog",
+    "version": "0.9.0",
+    "dependencies": {
+        "jquery": "1"
+    }
+}
