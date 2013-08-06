@@ -50,12 +50,14 @@
 			width: 640,
 			overlayColor: "#000",
 			overlayOpacity: 0.8,
+			zIndex: 1000,
 
 			effect: "fade",
 			openEasing: "swing",
 			openDuration: 300,
 			closeEasing: "swing",
 			closeDuration: 100,
+			destroyOnClose: false,
 
 			closeButton: ".button-close",
 			closeOnClickOverlay: true
@@ -120,7 +122,13 @@
 		 * Close the dialog
 		 */
 		this.close = function(){
+			var my = this;
 			this.effects[this.get("effect")].call(this, false);
+			if(this.get("destroyOnClose")){
+				this.node.on("dialogClose", function(){
+					my.destroy();
+				});
+			}
 			this.overlay.hide();
 		};
 
@@ -163,7 +171,8 @@
 					width: "100%",
 					height: "100%",
 					backgroundColor: this.get("overlayColor"),
-					opacity: this.get("overlayOpacity")
+					opacity: this.get("overlayOpacity"),
+					zIndex: this.get("zIndex")
 				})
 				.prependTo("body");
 				if(this.get("closeOnClickOverlay")){
@@ -183,7 +192,8 @@
 				.css({
 					position: "absolute",
 					visibility: "hidden",
-					width: this.get("width")
+					width: this.get("width"),
+					zIndex: this.get("zIndex") + 1
 				})
 				.addClass(this.get("className"))
 				.append(this.node)
@@ -226,6 +236,9 @@
 				duration: this.get(prefix + "Duration"),
 				easing: this.get(prefix + "Easing"),
 				complete: function(){
+					if(! open){
+						$(this).css("visibility", "hidden");
+					}
 					my.node.trigger("dialog" + my._capitalize(prefix));
 				}
 			};

@@ -41,13 +41,22 @@
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, quis, nesciunt tenetur quibusdam provident commodi. Rerum, optio, cumque esse adipisci incidunt necessitatibus fugiat tempora sapiente. Alias eos soluta quas ex.
 			</p>
 			<p>
-				<a href="#" class="link-dialog">Open Dialog</a>
+				<a href="#" class="link-dialog-clone">Open New Dialog (clone)</a>
+				| <a href="#" class="link-dialog-recycle">Open Dialog (existing dialog)</a>
 			</p>
 		</div>
 	</div>
 
 	<div class="hide">
 		<div class="my-dialog" id="my-dialog">
+			<h3>Existing Element</h3>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque illo impedit enim voluptas ex saepe? Fugiat, quae est mollitia culpa veniam illum doloribus quam et eligendi eaque qui distinctio dolores.
+			</p>
+			<button class="button-close">CLOSE</button>
+		</div>
+		<div class="my-dialog my-dialog-clone">
+			<h3>Cloned Element</h3>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque illo impedit enim voluptas ex saepe? Fugiat, quae est mollitia culpa veniam illum doloribus quam et eligendi eaque qui distinctio dolores.
 			</p>
@@ -71,22 +80,27 @@
 
 	// demo
 	(function(){
-		$dialog = $("#my-dialog");
-		$dialog.dialog("init", {
-			effect: "slide",
+
+		$ex = $("#my-dialog");
+		$ex.dialog("init", {
 			width: 320
 		});
-		$dialog.on("dialogOpen", function(){
-			console.log("open dialog");
-		});
-		$dialog.on("dialogClose", function(){
-			console.log("close dialog");
+
+
+		$("#container").on("click", ".link-dialog-recycle", function(e){
+			e.preventDefault();
+			$ex.dialog("open");
 		});
 
-		$("#container").on("click", ".link-dialog", function(e){
+		$("#container").on("click", ".link-dialog-clone", function(e){
 			e.preventDefault();
-			$dialog.dialog("open");
+			var $dialog = $(".my-dialog-clone").eq(0).clone();
+			$dialog.dialog("open", {
+				width: 320,
+				destroyOnClose: true
+			});
 		});
+
 	}());
 
 	</script>

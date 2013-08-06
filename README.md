@@ -15,7 +15,7 @@ If you want them, use jQuery UI, colorbox or something better.
 ```javascript
 var $dialog = $( /* some element */ );
 
-$dialog.dialog("show", {
+$dialog.dialog("open", {
     width: 320,
     overlayColor: "#fff",
     overlayOpacity: 0.5
@@ -29,11 +29,11 @@ $dialog.on("dialogClose", function(){
 ### Actions
 
 - "init" : Initialize dialog, doesn't open yet.
-- "show" : Open the dialog. Before opening, initialize if not yet.
+- "open" : Open the dialog. Before opening, initialize if not yet.
 - "close" : Close the dialog
 - "destroy" : Remove dialog node and overlay.
 
-"init" and "show" accept options as argument.
+"init" and "open" accept options as argument.
 
 ### Options
 
@@ -41,9 +41,11 @@ $dialog.on("dialogClose", function(){
 - width:Integer (640) : Dialog width
 - overlayColor:String (#000) : Overlay color
 - overlayOpacity:Number (0.8) : Overlay opacity
+- zIndex:Integer (1000) : Overlay z-index
 - effect:String ("fade") : Effect method name
 - openEasing:String ("swing") : Easing function name for opening dialog
 - closeEasing:String ("swing") : Easing function name for closing dialog
+- destroyOnClose:Boolean (false) : Remove dialog and overlay element when closed
 - openDuration:Integer (300) : Duration time for opening dialog
 - closeDuration:Integer (100) : Duration time for closing dialog
 - closeButton:String (".button-close") : Selector expression for close button
